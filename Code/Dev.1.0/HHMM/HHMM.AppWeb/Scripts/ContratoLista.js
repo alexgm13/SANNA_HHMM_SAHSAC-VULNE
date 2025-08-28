@@ -305,14 +305,14 @@ window.onload = function () {
 	txtBusquedaFechaFin.DatePickerX.init({
 		mondayFirst: true
 	});
-	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
+	sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[1];
 	var hdfrutcontrato = document.getElementById("hdfrutcontrato");
 	rutaContrato = hdfrutcontrato.value.split("\\").join("/") + "/" + sucursalId;
 	removeSeguridad("hdfrutcontrato");
 	var pos1 = window.location.href.indexOf("Configuracion");
-	urlBase = window.location.href.substring(0, pos1);
-	ss = window.parent.document.getElementById("iss").value;
+	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var url = urlBase + "Configuracion/listasMedicoContrato/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarCombos);
 }
