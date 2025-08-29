@@ -6020,11 +6020,11 @@ function configurarControles() {
                 valor = (ddlPFBonificacionServicio == "" ? 0 : ddlPFBonificacionServicio);
             }
             else if (this.id == "IcoCCompartido") {
-                var ddlCCompartidoServicio = document.getElementById("ddlCCompartidoServicio").value
+                var ddlCCompartidoServicio = sanitizeHTML(document.getElementById("ddlCCompartidoServicio").value);
                 valor = (ddlCCompartidoServicio == "" ? 0 : ddlCCompartidoServicio);
             }
             else {
-                var ddlProduccionEscalonadaServicio = document.getElementById("ddlProduccionEscalonadaServicio").value
+                var ddlProduccionEscalonadaServicio = sanitizeHTML(document.getElementById("ddlProduccionEscalonadaServicio").value);
                 valor = (ddlProduccionEscalonadaServicio == "" ? 0 : ddlProduccionEscalonadaServicio);
             }
         }
@@ -6255,14 +6255,14 @@ function configurarControles() {
                             var ulAdjuntos = document.getElementById("ulAdjuntos");
                             var contenido = "";
                             if (ulAdjuntos.innerHTML == "") {
-                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? archivo.name : archivo.name.substring(0, 34) + "...") + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
+                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? sanitizeHTML(archivo.name) : sanitizeHTML(archivo.name.substring(0, 34) + "...")) + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
                                 contenido += arrayArchivos.length;
                                 contenido += " onclick='EliminarArchivoTemporal(this)' ></span>&nbsp;&nbsp;<span class='Icons fa-refresh cargando' style='display:none' data-id=";
                                 contenido += arrayArchivos.length;
                                 contenido += "></span></li>";
                                 ulAdjuntos.innerHTML = contenido;
                             } else {
-                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? archivo.name : archivo.name.substring(0, 34) + "...") + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
+                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? sanitizeHTML(archivo.name) : sanitizeHTML(archivo.name.substring(0, 34) + "...")) + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
                                 contenido += arrayArchivos.length;
                                 contenido += " onclick='EliminarArchivoTemporal(this)' ></span>&nbsp;&nbsp;<span class='Icons fa-refresh cargando' style='display:none' data-id=";
                                 contenido += arrayArchivos.length;
@@ -6326,13 +6326,13 @@ function configurarControles() {
                             var contenido = "";
                             if (ulAdjuntoscf.innerHTML == "") {
                                 contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? archivo.name : archivo.name.substring(0, 34) + "...") + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
-                                contenido += archivo.id;
+                                contenido += sanitizeHTML(archivo.id);
                                 contenido += " onclick='EliminarArchivoTemporalcf(this)' ></span>&nbsp;&nbsp;<span class='Icons fa-refresh cargando' style='display:none' data-id=";
-                                contenido += archivo.id;
+                                contenido += sanitizeHTML(archivo.id);
                                 contenido += "></span></li>";
                                 ulAdjuntoscf.innerHTML = contenido;
                             } else {
-                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? archivo.name : archivo.name.substring(0, 34) + "...") + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
+                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? sanitizeHTML(archivo.name) : sanitizeHTML(archivo.name.substring(0, 34) + "...")) + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
                                 contenido += archivo.id;
                                 contenido += " onclick='EliminarArchivoTemporalcf(this)' ></span>&nbsp;&nbsp;<span class='Icons fa-refresh cargando' style='display:none' data-id=";
                                 contenido += archivo.id;
@@ -13265,9 +13265,11 @@ function limpiarProductoFijoDescuento() {
 }
 
 function sanitizeHTML(value) {
-    if (!value) return "";
-    return value
-        .replace(/[<>"'`]/g, "")
-        .replace(/\n/g, " ")
-        .replace(/\r/g, " ");
+    if (value == null) return ""; 
+    return String(value)
+        .replace(/</g, "&lt;")    
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")  
+        .replace(/'/g, "&#39;")   
+        .replace(/`/g, "&#96;");  
 }

@@ -5012,7 +5012,7 @@ function configurarControles() {
 				valor = (ddlCCompartidoServicio == "" ? 0 : ddlCCompartidoServicio);
 			}
 			else {
-				var ddlProduccionEscalonadaServicio = document.getElementById("ddlProduccionEscalonadaServicio").value
+				var ddlProduccionEscalonadaServicio = sanitizeHTML(document.getElementById("ddlProduccionEscalonadaServicio").value);
 				valor = (ddlProduccionEscalonadaServicio == "" ? 0 : ddlProduccionEscalonadaServicio);
 			}
 		}
