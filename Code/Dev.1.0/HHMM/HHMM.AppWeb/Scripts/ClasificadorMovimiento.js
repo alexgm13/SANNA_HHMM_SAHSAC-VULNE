@@ -395,9 +395,11 @@ function limpiar() {
 }
 
 function sanitizeHTML(value) {
-    if (!value) return "";
-    return value
-        .replace(/[<>"'`]/g, "")
-        .replace(/\n/g, " ")
-        .replace(/\r/g, " ");
+    if (value == null) return "";
+    return String(value)
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+        .replace(/`/g, "&#96;");
 }
