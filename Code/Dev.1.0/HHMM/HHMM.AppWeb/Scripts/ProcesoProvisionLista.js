@@ -505,7 +505,7 @@ function configurarControles() {
 				opciones[y].className = "";
 			}
 			this.className = "active";
-			SeleccionActualProceso = this.getAttribute("data-estado");
+			SeleccionActualProceso = sanitizeHTML(this.getAttribute("data-estado"));
 
 			if (SeleccionActualProceso == "F" || SeleccionActualProceso == "A" || SeleccionActualProceso == "G") {
 				document.getElementById("chkTodos").style.display = "none";
@@ -742,9 +742,9 @@ function configurarControles() {
 
 	var btnBuscarDetalleOA = document.getElementById("btnBuscarDetalleOA");
 	btnBuscarDetalleOA.onclick = function () {
-		var txtOADetalle = document.getElementById("txtOADetalle").value;
+		var txtOADetalle = sanitizeHTML(document.getElementById("txtOADetalle").value);
 		if (txtOADetalle != "") {
-			var intSucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
+			var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
 			var ss = window.parent.document.getElementById("iss").value;
 			var divIfrDetalleOA = document.getElementById("divIfrDetalleOA");
 			divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOADetalle;
@@ -1210,7 +1210,7 @@ function configurarControles() {
 				var url = urlBase + "Proceso/revertirAsientoContable/?ss=" + ss + "&su=" + sucursal + "&id=" + idProvision;// + "&idCompania=" + idCompania;
 				var mensaje = "";
 				var titulo = "";
-				var txtDetalleDoctorPeriodo = document.getElementById("txtDetalleDoctorPeriodo").value;
+				var txtDetalleDoctorPeriodo = sanitizeHTML(document.getElementById("txtDetalleDoctorPeriodo").value);
 				mensaje = "¿Desea revertir la provisión del periodo <span style='font-weight:bold;color:red'>" + txtDetalleDoctorPeriodo + "</span>?";
 				titulo = "CONFIRMAR REVERSIÓN DE PROVISIÓN";
 				document.getElementById("spnActualizarProvision").innerHTML = mensaje;
@@ -2921,7 +2921,7 @@ function validarBusqueda() {
 // **
 function buscarProceso() {
 	var txtOrden = document.getElementById("txtOrden");
-	var intSucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
+	var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
 	var ss = window.parent.document.getElementById("iss").value;
 	if (txtOrden.value != "") {
 		var ifrDetalleOA = document.getElementById("ifrDetalleOA");
@@ -3427,7 +3427,7 @@ function mostrarMatriz(indicePagina, opcion) {
 									datoConfSel = matriz[i][13].split("¬");
 									for (var e = 1; e < datoConfSel.length - 1; e++) {
 										if (datoConfSel[e] == "1") {
-											contenido += document.getElementsByName("rdn-ConfiguracionPago")[e-1].value;
+											contenido += sanitizeHTML(document.getElementsByName("rdn-ConfiguracionPago")[e-1].value);
 											break;
 										}
 									}
@@ -4197,9 +4197,9 @@ function mostrarError(id) {
 
 function mostrarObservadas(id) {
 	document.getElementById("spnObservadoDescripcion").innerHTML = matrizDetalle[id][9];
-	var txtDetalleDoctorFechaInicio = document.getElementById("txtDetalleDoctorFechaInicio").value;
-	var txtDetalleDoctorFechaFin = document.getElementById("txtDetalleDoctorFechaFin").value;
-	var txtDetalleDoctorTipoAdmision = document.getElementById("txtDetalleDoctorTipoAdmision").value
+	var txtDetalleDoctorFechaInicio = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaInicio").value);
+	var txtDetalleDoctorFechaFin = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaFin").value);
+	var txtDetalleDoctorTipoAdmision = document.getElementById("txtDetalleDoctorTipoAdmision").value;
 	var valor = "";
 	var valor2 = "";
 	var dato;

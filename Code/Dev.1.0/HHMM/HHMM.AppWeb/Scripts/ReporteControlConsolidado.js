@@ -1869,9 +1869,9 @@ function ObtenerListas(rpta) {
 
 	}
 
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc")).value.split("|")[1];
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	var url = urlBase + "Control/ListasReporteDetalladoProvision/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarCombo);
 
