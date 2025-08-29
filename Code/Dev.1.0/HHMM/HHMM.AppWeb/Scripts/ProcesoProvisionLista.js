@@ -745,7 +745,7 @@ function configurarControles() {
 		var txtOADetalle = sanitizeHTML(document.getElementById("txtOADetalle").value);
 		if (txtOADetalle != "") {
 			var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
-			var ss = window.parent.document.getElementById("iss").value;
+			var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 			var divIfrDetalleOA = document.getElementById("divIfrDetalleOA");
 			divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOADetalle;
 		}
@@ -1319,10 +1319,10 @@ function prepararDatosEnviar() {
 }
 
 function mostrarDetalleOA() {
-	var txtDetalleDoctorFechaInicio = document.getElementById("txtDetalleDoctorFechaInicio").value;
-	var txtDetalleDoctorFechaFin = document.getElementById("txtDetalleDoctorFechaFin").value;
-	var txtDetalleDoctorPeriodo = document.getElementById("txtDetalleDoctorPeriodo").value;
-	var txtDetalleDoctorTipoAdmision = document.getElementById("txtDetalleDoctorTipoAdmision").value;
+	var txtDetalleDoctorFechaInicio = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaInicio").value);
+	var txtDetalleDoctorFechaFin = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaFin").value);
+	var txtDetalleDoctorPeriodo = sanitizeHTML(document.getElementById("txtDetalleDoctorPeriodo").value);
+	var txtDetalleDoctorTipoAdmision = sanitizeHTML(document.getElementById("txtDetalleDoctorTipoAdmision").value);
 	var id = ProcesoMedicoActual;
 	var detalles = matrizDetalle[id][1] + "|" + matrizDetalle[id][2] + "|" + matrizDetalle[id][8] + "|" + matrizDetalle[id][11] + "|" + matrizDetalle[id][15] + "|" + txtDetalleDoctorFechaInicio + "|" + txtDetalleDoctorFechaFin + "|" + txtDetalleDoctorPeriodo + "|" + txtDetalleDoctorTipoAdmision + "|" + SeleccionActualProceso;
 	var ifrProvisionDetalleConceptosOA = document.getElementById("ifrProvisionDetalleConceptosOA");
@@ -1377,7 +1377,7 @@ function RptaCalculo(rpta) {
 						opciones[y].className = "";
 					}
 					this.className = "active";
-					SeleccionActualProceso = this.getAttribute("data-estado");
+					SeleccionActualProceso = sanitizeHTML(this.getAttribute("data-estado"));
 
 					if (SeleccionActualProceso == "F" || SeleccionActualProceso == "A" || SeleccionActualProceso == "G") {
 						document.getElementById("chkTodos").style.display = "none";
@@ -2922,15 +2922,15 @@ function validarBusqueda() {
 function buscarProceso() {
 	var txtOrden = document.getElementById("txtOrden");
 	var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
-	var ss = window.parent.document.getElementById("iss").value;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	if (txtOrden.value != "") {
 		var ifrDetalleOA = document.getElementById("ifrDetalleOA");
 		if (ifrDetalleOA.innerHTML == "") {
-			ifrDetalleOA.innerHTML = "<iframe id='divIfrDetalleOA' style='margin:0;padding:0;width:1150px;height:440px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOrden.value + "'></iframe>";
+			ifrDetalleOA.innerHTML = "<iframe id='divIfrDetalleOA' style='margin:0;padding:0;width:1150px;height:440px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + sanitizeHTML(txtOrden.value) + "'></iframe>";
 		}
 		else {
 			var divIfrDetalleOA = document.getElementById("divIfrDetalleOA");
-			divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOrden.value;
+			divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + sanitizeHTML(txtOrden.value);
 		}
 		document.getElementById("txtOADetalle").value = txtOrden.value;
 		abrirPopup("PopupDetalleOA");
@@ -4159,8 +4159,8 @@ function expandir(id, ob, control) {
 
 function mostrarError(id) {
 	document.getElementById("spnErrorDescripcion").innerHTML = matrizDetalle[id][9];
-	var txtDetalleDoctorFechaInicio = document.getElementById("txtDetalleDoctorFechaInicio").value;
-	var txtDetalleDoctorFechaFin = document.getElementById("txtDetalleDoctorFechaFin").value;
+	var txtDetalleDoctorFechaInicio = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaInicio").value);
+	var txtDetalleDoctorFechaFin = sanitizeHTML(document.getElementById("txtDetalleDoctorFechaFin").value);
 	var txtDetalleDoctorTipoAdmision = document.getElementById("txtDetalleDoctorTipoAdmision").value
 	var valor = "";
 	var valor2 = "";

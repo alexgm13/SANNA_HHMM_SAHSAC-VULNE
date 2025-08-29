@@ -772,10 +772,10 @@ function mostrarDetalleComponente(componenteid, componente) {
 	var divContratoReporte = document.getElementById("divContratoReporte");
 	divContratoReporte.style.display = 'inline';
 
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[1];
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 
 
 	document.getElementById("txtSucursal").value = sucursal;
@@ -2808,7 +2808,7 @@ function DescargarContrato(rpta) {
 		delete a;
 	}
 	else {
-		var hdfRuta = document.getElementById("hdfRuta").value;
+		var hdfRuta = sanitizeHTML(document.getElementById("hdfRuta").value);
 		mostraralerta("No se ha encontrado el archivo en el repositorio: " + hdfRuta + sucursalId);
 	}
 }

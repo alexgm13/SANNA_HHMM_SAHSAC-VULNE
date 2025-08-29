@@ -213,10 +213,10 @@ function estableceSucursal() {
 function buscarListas() {
     var pos1 = window.location.href.indexOf("Proceso");
     urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-    ss = window.parent.document.getElementById("iss").value;
+    ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
     var url = urlBase + "Proceso/listarProcesoListas/?ss=" + ss;
 
-    var sucursal = window.parent.document.getElementById("isuc").value.split("|")[0];
+    var sucursal = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
     var frm = new FormData();
     frm.append("SucursalId", sucursal);
 
@@ -307,10 +307,10 @@ function configurarControles() {
 
     var btnBuscarDetalleOA = document.getElementById("btnBuscarDetalleOA");
     btnBuscarDetalleOA.onclick = function () {
-        var txtOADetalle = document.getElementById("txtOADetalle").value;
+        var txtOADetalle = sanitizeHTML(document.getElementById("txtOADetalle").value);
         if (txtOADetalle != "") {
-            var intSucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-            var ss = window.parent.document.getElementById("iss").value;
+            var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
+            var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
             var divIfrDetalleOA = document.getElementById("divIfrDetalleOA");
             divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOADetalle;
         }
@@ -1737,16 +1737,16 @@ function crearTabla(opcion) {
 function buscarProceso() {
 
     var txtOrden = document.getElementById("txtOrden");
-    var intSucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-    var ss = window.parent.document.getElementById("iss").value;
+    var intSucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
+    var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
     if (txtOrden.value != "") {
         var ifrDetalleOA = document.getElementById("ifrDetalleOA");
         if (ifrDetalleOA.innerHTML == "") {
-            ifrDetalleOA.innerHTML = "<iframe id='divIfrDetalleOA' style='margin:0;padding:0;width:1150px;height:440px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOrden.value + "'></iframe>";
+            ifrDetalleOA.innerHTML = "<iframe id='divIfrDetalleOA' style='margin:0;padding:0;width:1150px;height:440px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + sanitizeHTML(txtOrden.value) + "'></iframe>";
         }
         else {
             var divIfrDetalleOA = document.getElementById("divIfrDetalleOA");
-            divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + txtOrden.value;
+            divIfrDetalleOA.src = urlBase + "Mantenimiento/OADetalleLista/?ss=" + ss + "&su=" + intSucursalId + "&oa=" + sanitizeHTML(txtOrden.value);
         }
         document.getElementById("txtOADetalle").value = txtOrden.value;
         abrirPopup("PopupDetalleOA");
@@ -3582,7 +3582,7 @@ function configurarHistorial() {
         spn = hstest[i];
         spn.onclick = function () {
             var valor = this.getAttribute("data-v");
-            var tabla = this.getAttribute("data-t");
+            var tabla = sanitizeHTML(this.getAttribute("data-t"));
             var hdfCd = document.getElementById("hdfCd");
             hdfCd.value = valor;
             verHistorial(tabla);
@@ -3593,9 +3593,9 @@ function configurarHistorial() {
 
 function verHistorial(t) {
     var hdfCd = document.getElementById("hdfCd");
-    var ss = window.parent.document.getElementById("iss").value;
-    var h = window.parent.document.getElementById("Ref").value;
-    var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+    var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+    var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+    var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
     mostrarPopupH(u);
 }
 function mostrarPopupH(url, tipo) {
