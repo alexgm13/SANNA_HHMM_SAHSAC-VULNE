@@ -87,10 +87,10 @@ function requestServerXHR(type, url, callBack, data) {
 var sucursalId = "", sucursal = "", urlBase = "", ss = "", opcionfiltro = -1;
 
 window.onload = function () {
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[1];
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	configuracionInicial();
 	url = urlBase + "Control/obtenerCuentaCorrienteListas/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listasReporte);
@@ -2292,4 +2292,12 @@ function mostrarLeyenda(opcion) {
 		document.getElementById("tblLeyenda2").style.display = "";
 	}
 	abrirPopup('PopupLeyenda');
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

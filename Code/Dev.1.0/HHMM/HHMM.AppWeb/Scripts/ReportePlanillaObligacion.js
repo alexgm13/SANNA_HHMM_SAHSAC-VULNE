@@ -45,10 +45,10 @@ window.onload = function () {
 		sinanimacion[0].style.display = "";
 		sinanimacion[0].className = "PopUp";
 	}
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[1];
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	document.getElementById("txtSucursal").value = sucursal;
 	ConfiguracionInicial();
 	var url = urlBase + "Control/ListasReportePlanillaObligacion?ss=" + ss + "&su=" + sucursalId;
@@ -834,4 +834,12 @@ function recargarIframe(objeto) {
 		}
 	}
 	iframe.contentWindow.filtrar();
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

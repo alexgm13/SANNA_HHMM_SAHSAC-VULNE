@@ -38,10 +38,10 @@ var cadenaEsp = "";
 var lstPeriodoCombo = ["L¦Semanal", "Q¦Quincenal", "M¦Mensual", "B¦Bimensual", "T¦Trimestral", "S¦Semestral", "A¦Anual"];
 var totalesMtfijo = { mtImporte: 0, mtDescuento: 0, mtTotal: 0 };
 window.onload = function () {
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[1];
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	var url = urlBase + "Control/ListasReporteProvision/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarCombo);
 	configuracionInicial();
@@ -3669,3 +3669,11 @@ function CreacionPDFGeneral() {
 //	nombrePDF = Periodo[2] + "-" + Periodo[3] + "-" + Periodo[4].charAt(0) + "-" + factura[1];
 //	$.ajax(url, "post", listarPDF, contenido);
 //}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
+}

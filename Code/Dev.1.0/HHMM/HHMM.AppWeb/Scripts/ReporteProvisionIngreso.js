@@ -119,8 +119,8 @@ var contenidoExportar = "";
 var _data, _matriz = [];
 
 window.onload = function () {
-	urlBase = location.protocol + "//" + window.location.host + document.getElementById("url").value;
-	ss = window.parent.document.getElementById("iss").value;
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(document.getElementById("url").value);
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	//var hdfSucursal = document.getElementById("hdfSucursal").value;
 	//if (hdfSucursal != "") {
 	//	var elemento1 = document.getElementsByClassName("fa-search")[0];
@@ -636,4 +636,12 @@ function abrirPopup(popup) {
 	} else {
 		popup.className = "PopUp";
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

@@ -48,10 +48,10 @@ var urlBase = "", opcionfiltro = -1, opcionPopUp = -1, ss = "", Campoeliminar = 
 var valorTabACtual = "tabx-1";
 
 window.onload = function () {
-	sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.parent.document.getElementById("isuc").value.split("|")[1];
-	ss = window.parent.parent.document.getElementById("iss").value;
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
+	sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[1];
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
 	RutaContrato = document.getElementById("hdfRuta").value + "\\" + sucursalId;
 	var url = urlBase + "Control/ListarMedicoContratoReporte/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarMedicoContratoReporte);
@@ -3010,4 +3010,12 @@ function requestServer(url, type, success, text) {
 	else {
 		if (text != null && text != "") xhr.send(text);
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

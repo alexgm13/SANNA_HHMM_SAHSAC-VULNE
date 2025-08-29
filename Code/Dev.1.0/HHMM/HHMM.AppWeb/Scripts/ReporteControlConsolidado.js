@@ -99,8 +99,8 @@ var indiceExcelActualArchivos = 0;
 window.onload = function () {
 	var pos1 = window.location.href.indexOf("Control");
 	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-	ss = window.parent.document.getElementById("iss").value;
-	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
 	var sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
 	ConfiguracionInicial();
 	var url = urlBase + "Control/ReporteControlConsolidadoListas?ss=" + ss;
