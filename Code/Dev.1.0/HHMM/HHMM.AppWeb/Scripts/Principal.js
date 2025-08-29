@@ -60,7 +60,7 @@ window.onload = function () {
 			if (this.value != "") {
 				var url = window.location.href;
 				if (url.indexOf('?') > -1) {
-					url = urlold + "Principal/Inicio?ss=" + ss + "&sucursalId=" + this.value;
+					url = urlold + "Principal/Inicio?ss=" + ss + "&sucursalId=" + sanitizeHTML(this.value);
 					window.location.href = url;
 				}
 			}
@@ -142,7 +142,7 @@ function mostrarCerrarSesion(rpta) {
 }
 function mostrarMenu(rpta) {
 	if (rpta != "") {
-		var ss = document.getElementById("iss").value;
+		var ss = sanitizeHTML(document.getElementById("iss").value);
 		listaMenu = rpta.split("¬");
 		var nRegistros = listaMenu.length;
 		var campos;
@@ -168,7 +168,7 @@ function mostrarMenu(rpta) {
 }
 
 function crearMenu(idMenu, sid) {
-	var ref = document.getElementById("Ref").value;
+	var ref = sanitizeHTML(document.getElementById("Ref").value);
 	var nRegistros = listaMenu.length;
 	var campos;
 	var nCampos;
