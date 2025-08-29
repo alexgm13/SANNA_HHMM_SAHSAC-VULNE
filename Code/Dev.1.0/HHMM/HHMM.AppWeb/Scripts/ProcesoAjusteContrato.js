@@ -2798,13 +2798,11 @@ function exportacionExcelImportacion() {
 	} else {
 		mostraralerta("No se encontraron registros");
 	}
-
-	function sanitizeHTML(value) {
-		if (!value) return "";
-		return value
-			.replace(/[<>"'`]/g, "")
-			.replace(/\n/g, " ")
-			.replace(/\r/g, " ");
-	}
-
+}
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

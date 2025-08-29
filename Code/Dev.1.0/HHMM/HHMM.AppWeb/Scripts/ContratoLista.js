@@ -5008,7 +5008,7 @@ function configurarControles() {
 				valor = (ddlPFBonificacionServicio == "" ? 0 : ddlPFBonificacionServicio);
 			}
 			else if (this.id == "IcoCCompartido") {
-				var ddlCCompartidoServicio = document.getElementById("ddlCCompartidoServicio").value
+				var ddlCCompartidoServicio = sanitizeHTML(document.getElementById("ddlCCompartidoServicio").value);
 				valor = (ddlCCompartidoServicio == "" ? 0 : ddlCCompartidoServicio);
 			}
 			else {

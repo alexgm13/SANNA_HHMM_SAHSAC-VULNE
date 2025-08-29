@@ -36,9 +36,9 @@ function requestServer(url, type, success, text) {
 
 
 window.onload = function () {
-	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	ss = window.parent.parent.document.getElementById("iss").value;
+	sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	crearTabla("Principal");
 	crearTabla("Detalle");
 	configurarControles();
@@ -334,4 +334,11 @@ function FiltrarPeriodo(id, opcion) {
 	matrizDetalle = [];
 	matrizDetalle = matriz.slice(0);
 	paginar(0, "Detalle");
+}
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }
