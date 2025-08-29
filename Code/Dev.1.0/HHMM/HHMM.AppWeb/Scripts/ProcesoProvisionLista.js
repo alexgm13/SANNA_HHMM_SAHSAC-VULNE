@@ -1913,7 +1913,7 @@ function RptaCalculo(rpta) {
 					opciones[y].className = "";
 				}
 				this.className = "active";
-				SeleccionActualProceso = this.getAttribute("data-estado");
+				SeleccionActualProceso = sanitizeHTML(this.getAttribute("data-estado"));
 
 				if (SeleccionActualProceso == "F" || SeleccionActualProceso == "A" || SeleccionActualProceso == "G") {
 					document.getElementById("chkTodos").style.display = "none";

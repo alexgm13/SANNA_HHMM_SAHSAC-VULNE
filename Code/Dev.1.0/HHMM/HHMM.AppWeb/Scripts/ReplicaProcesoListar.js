@@ -41,10 +41,10 @@ var sucursal, sucursalId, isAdmin;
 var objRespuestaProceso = { dato1: 0, dato2: 0, dato3: "" };
 
 window.onload = function () {
-	urlBase = window.parent.document.getElementById("Ref").value;
-	ss = window.parent.document.getElementById("iss").value;
-	sucursalId = window.top.document.getElementById("isuc").value.split("|")[0];
-    sucursal = window.top.document.getElementById("isuc").value.split("|")[1];
+	urlBase = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	sucursalId = sanitizeHTML(window.top.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTML(window.top.document.getElementById("isuc").value).split("|")[1];
     //Para identificar si es Administrador 14/10/2019
 	isAdmin = window.parent.document.getElementById("isAdmin").value;
 
@@ -1427,4 +1427,12 @@ function exportacion() {
 		contenido.push("</tr>");
 	}
 	return (contenido.join("") + "</table></html>");
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }
