@@ -6325,7 +6325,7 @@ function configurarControles() {
                             var ulAdjuntoscf = document.getElementById("ulAdjuntoscf");
                             var contenido = "";
                             if (ulAdjuntoscf.innerHTML == "") {
-                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? archivo.name : archivo.name.substring(0, 34) + "...") + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
+                                contenido += "<li style='padding:4px 0'>" + (archivo.name <= 30 ? sanitizeHTML(archivo.name) : sanitizeHTML(archivo.name.substring(0, 34) + "...")) + "&nbsp;&nbsp;<span class='Icons fa-times' style='cursor:pointer' data-id=";
                                 contenido += sanitizeHTML(archivo.id);
                                 contenido += " onclick='EliminarArchivoTemporalcf(this)' ></span>&nbsp;&nbsp;<span class='Icons fa-refresh cargando' style='display:none' data-id=";
                                 contenido += sanitizeHTML(archivo.id);
