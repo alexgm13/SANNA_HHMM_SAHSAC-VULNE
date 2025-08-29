@@ -5000,7 +5000,7 @@ function configurarControles() {
 		var valor = 0;
 		if (this.id == "IcoPFConfiguracion" || this.id == "IcoPFBonificacion" || this.id == "IcoProduccionEscalonada" || this.id == "IcoCCompartido") {
 			if (this.id == "IcoPFConfiguracion") {
-				var ddlPFConfiguracionServicio = document.getElementById("ddlPFConfiguracionServicio").value
+				var ddlPFConfiguracionServicio = sanitizeHTML(document.getElementById("ddlPFConfiguracionServicio").value);
 				valor = (ddlPFConfiguracionServicio == "" ? 0 : ddlPFConfiguracionServicio);
 			}
 			else if (this.id == "IcoPFBonificacion") {
@@ -9577,9 +9577,9 @@ function limpiarCabeceras() {
 
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
-	var ss = window.parent.document.getElementById("iss").value;
-	var h = window.parent.document.getElementById("Ref").value;
-	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
 	mostrarPopupH(u);
 }
 

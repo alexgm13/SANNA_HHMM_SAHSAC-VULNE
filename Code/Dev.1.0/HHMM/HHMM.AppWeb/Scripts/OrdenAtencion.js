@@ -49,7 +49,7 @@ window.onload = function () {
 	sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
 	var pos1 = window.location.href.indexOf("Mantenimiento");
 	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-	ss = window.parent.document.getElementById("iss").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	document.getElementById("cboMes").value = fecha.getMonth() + 1;
 	document.getElementById("txtAnio").value = fecha.getFullYear();
 	var url = urlBase + "Mantenimiento/obtenerOrdenAtencionListas/?ss=" + ss + "&su=" + sucursalId;
@@ -1900,9 +1900,9 @@ function verHistorial(id) {
 	var ddlEntidad = document.getElementById("ddlEntidad").value;
 	if (ddlEntidad == "O") t = "ReplicaOrdenAtencion";
 	else t = "ReplicaLiquidacionExpediente";
-	var ss = window.parent.document.getElementById("iss").value;
-	var h = window.parent.document.getElementById("Ref").value;
-	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
 	mostrarPopupH(u);
 }
 function mostrarPopupH(url, tipo) {

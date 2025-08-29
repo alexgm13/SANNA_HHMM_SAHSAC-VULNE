@@ -9,14 +9,14 @@ window.onload = function () {
 
 	var doc = document;
 	var pos1 = window.location.href.indexOf("Principal");
-	var sucursal = document.getElementById("isuc").value.split("|")[1];
+	var sucursal = sanitizeHTML(document.getElementById("isuc").value).split("|")[1];
 	var spnSucursal = document.getElementById("spnSucursal");
 	spnSucursal.innerHTML = sucursal;
 
 
-	urlold = location.protocol + "//" + window.location.host + document.getElementById("Ref").value;
+	urlold = location.protocol + "//" + window.location.host + sanitizeHTML(document.getElementById("Ref").value);
 	//var urlold = window.location.href.substring(0, pos1);
-	ss = doc.getElementById("iss").value;
+	ss = sanitizeHTML(doc.getElementById("iss").value);
 	var url = urlold + "Principal/crearMenus/?ss=" + ss;
 	enviarServidor(url, mostrarMenu);
 
@@ -47,13 +47,13 @@ window.onload = function () {
 		var url = urlold + "/Seguridad/CerrarSesion?ss=" + ss;
 		enviarServidor(url, redirecionar);
 	};
-	var msg = document.getElementById("hmsg").value;
+	var msg = sanitizeHTML(document.getElementById("hmsg").value);
 	if (msg.toLowerCase().indexOf("faltan") > -1) {
 		mostraralerta(msg);
 	}
 
 	var ddlPrincipalSucursal = document.getElementById("ddlPrincipalSucursal");
-	var lista = document.getElementById("lstSuc").value.split("¯");
+	var lista = sanitizeHTML(document.getElementById("lstSuc").value).split("¯");
 	if (lista.length > 1 && lista != "") {
 		llenarCombo(lista, "ddlPrincipalSucursal");
 		ddlPrincipalSucursal.onchange = function () {
@@ -321,4 +321,12 @@ function abrirPopupParametro(popup) {
 	} else {
 		popup.className = "PopUp";
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }
