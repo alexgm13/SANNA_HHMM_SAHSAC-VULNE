@@ -894,9 +894,9 @@ function configurarControles() {
     var spnPlanilla = document.getElementById("spnPlanilla");
     spnPlanilla.onclick = function () {
         grabarParametrosBusqueda();
-        var id = this.getAttribute("data-id");
-        var txtDesMant = document.getElementById("txtDesMant").value.substring(0, 50);
-        var seg = document.getElementById("hdfSeguridad").value.split("¦")[0]
+        var id = sanitizeHTML(this.getAttribute("data-id"));
+        var txtDesMant = sanitizeHTML(document.getElementById("txtDesMant").value.substring(0, 50));
+        var seg = sanitizeHTML(document.getElementById("hdfSeguridad").value).split("¦")[0]
         window.location.href = urlBase + "Proceso/CreacionPlanilla/?ss=" + ss + "&esIframe=1&id=" + id + "&seg=" + seg + "&det=" + txtDesMant;
     }
 
@@ -3635,6 +3635,4 @@ function sanitizeHTML(value) {
     if (!value) return "";
     return value
         .replace(/[<>"'`]/g, "")
-        .replace(/\n/g, " ")
-        .replace(/\r/g, " ");
 }

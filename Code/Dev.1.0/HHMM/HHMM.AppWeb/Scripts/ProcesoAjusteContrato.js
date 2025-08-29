@@ -2650,7 +2650,7 @@ function safe_decode_range(range) {
 function encode_col(col) { var s = ""; for (++col; col; col = Math.floor((col - 1) / 26)) s = String.fromCharCode(((col - 1) % 26) + 65) + s; return s; }
 
 function redireccionprovision() {
-	var id = document.getElementById("hdfAjusteContrato").value.split("¦")[3];
+	var id = sanitizeHTML(document.getElementById("hdfAjusteContrato").value).split("¦")[3];
 	window.location.href = urlBase + "Proceso/ProcesoProvicionLista/?ss=" + ss + "&id=" + id;
 }
 
