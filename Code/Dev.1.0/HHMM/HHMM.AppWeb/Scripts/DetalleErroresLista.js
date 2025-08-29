@@ -697,7 +697,7 @@ function exportarExcel(opcion) {
 	return excelExportar;
 }
 
-function 	(value) {
+function sanitizeHTML(value) {
 	if (!value) return "";
 	return value
 		.replace(/[<>"'`]/g, "")
