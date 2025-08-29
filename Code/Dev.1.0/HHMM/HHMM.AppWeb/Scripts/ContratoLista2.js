@@ -6029,11 +6029,11 @@ function configurarControles() {
             }
         }
         if (ifrPrestaciones.innerHTML == "") {
-            ifrPrestaciones.innerHTML = "<iframe style='margin:0;padding:0;width:900px;height:600px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + (this.id.indexOf("Vacuna") > -1 ? 'A' : 'P') + "&val=" + valor + "&ver=" + document.getElementById("hdfSeguridad").value + "' id='frPrestacion'></iframe>";
+            ifrPrestaciones.innerHTML = "<iframe style='margin:0;padding:0;width:900px;height:600px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + (this.id.indexOf("Vacuna") > -1 ? 'A' : 'P') + "&val=" + valor + "&ver=" + sanitizeHTML(document.getElementById("hdfSeguridad").value) + "' id='frPrestacion'></iframe>";
         }
         else {
             var frPrestacion = document.getElementById("frPrestacion");
-            frPrestacion.src = urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + encodeURIComponent((this.id.indexOf("Vacuna") > -1 ? 'A' : 'P')) + "&val=" + encodeURIComponent(valor) + "&ver=" + encodeURIComponent(document.getElementById("hdfSeguridad").value);
+            frPrestacion.src = urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + (this.id.indexOf("Vacuna") > -1 ? 'A' : 'P') + "&val=" + valor + "&ver=" + sanitizeHTML(document.getElementById("hdfSeguridad").value);
         }
         abrirPopup("PopupPrestaciones");
 
